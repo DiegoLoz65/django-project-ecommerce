@@ -1,0 +1,165 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<title>Prólogos - My cards</title>
+<link href="{% static 'css/result.css' %}" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="grid search">
+                <div class="grid-body">
+                    <div class="row">
+
+                        <!-- ======= Registered Cards ======= -->
+                        <div class="col-md-9">
+
+                            <h2>
+                                <lord-icon src="https://cdn.lordicon.com/xxwwxrom.json" trigger="morph"
+                                    colors="primary:#666666" state="morph" style="width:50px;height:50px">
+                                </lord-icon>
+                                Payment methods
+                            </h2>
+                            <hr>
+                            <div class="padding"></div>
+
+                            <!-- Table -->
+                            <div class="table-responsive payment-card-list">
+
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th></th>
+                                            <th>Card type</th>
+                                            <th>Card number</th>
+                                            <th>Expiration date</th>
+                                            <th>Owner</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <!-- Registered Card-->
+                                        {% for p in payment_methods %}
+                                        <tr class="text-center">
+
+                                            <td id="Bank"><i class="bi bi-credit-card"></i></td>
+                                            <td id="TypeCard">{{p.type_card}}</td>
+                                            <td id="NumberCard">
+                                                <strong>{{p.number_card}}</strong>
+                                            </td>
+                                            <td id="ExpirationDate">
+                                                {{p.expiration_date}}
+                                            </td>
+                                            <td id="CardHolder">
+                                                {{p.cardholder}}
+                                            </td>
+                                            <td id="action">
+                                                
+                                                <button type="button" class="transparent-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#modal{{p.id}}">
+                                                    <lord-icon src="https://cdn.lordicon.com/jmkrnisz.json"
+                                                        trigger="morph" colors="primary:#e03a3c" state="morph-fill"
+                                                        style="width:32px;height:32px">
+                                                    </lord-icon>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modal{{p.id}}" tabindex="-1"
+                                                    aria-labelledby="deleteCardLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="deleteCardLabel">
+                                                                    Delete card
+                                                                    <lord-icon
+                                                                        src="https://cdn.lordicon.com/jmkrnisz.json"
+                                                                        trigger="morph" colors="primary:#e03a3c"
+                                                                        state="morph-fill"
+                                                                        style="width:32px;height:32px">
+                                                                    </lord-icon>
+                                                                </h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h6>Are you sure you wanna delete this card?</h6>
+                                                            </div>
+                                                            <div class="modal-footer btn-group">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="bi bi-x-lg"></i>
+                                                                    Close
+                                                                </button>
+
+                                                                <a data-card="{{p.id}}" data-action="delete"
+                                                                    class="btn btn-danger update-payment-methods"
+                                                                    type="button" id="deletePaymentMethod">
+                                                                    <i class="bi bi-trash-fill"></i>
+                                                                    Delete
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <!-- ======= Balance ======= -->
+                            <div class="row">
+                                <h2 class="grid-title">
+                                    <lord-icon src="https://cdn.lordicon.com/gsvbkwao.json" trigger="hover"
+                                        colors="primary:#666666" state="hover" style="width:50px;height:50px">
+                                    </lord-icon>
+                                    Balance
+                                </h2>
+                                <h4>$ {{balance}} COP</h4>
+
+                                <div class="d-flex btn-group justify-content-evenly">
+                                    <!--Subtract balance-->
+                                    <form method='get' action="{% url 'manage_balance' %}">
+                                        <button class="btn btn-danger w-100" type="submit" value="subtract" name="subtract">
+                                            <i class="bi bi-patch-minus-fill"></i>
+                                            Substract
+                                        </button>
+                                    </form>
+                                    <!--Add balance-->
+                                    <form method='get' action="{% url 'manage_balance' %}">
+                                        <button class="btn btn-success w-100" type="submit" value="add" name="add">
+                                            <i class="bi bi-plus-circle-fill"></i>
+                                            Add
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+
+                            <!-- Add Card-->
+                            <a class="btn btn-outline-dark d-flex justify-content-center" type="button"
+                                href="{% url 'add_card' %}">
+                                Add card
+                                <lord-icon src="https://cdn.lordicon.com/zqxjldws.json" trigger="hover"
+                                    colors="primary:#666666" state="hover" style="width:32px;height:32px">
+                                </lord-icon>
+                            </a>
+
+                            <div class="padding"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

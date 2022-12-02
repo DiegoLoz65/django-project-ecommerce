@@ -1,0 +1,203 @@
+{% extends 'autentication/main_user.html' %}
+{% load static %}
+{% block content %}
+
+<title>Prólogos - Register</title>
+
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+
+			<!--Home logo-->
+			<div class="mb-4">
+				<a href="/">
+					<image src=" {% static '/images/icons/logo-red-black.png' %}" class="login-logo">
+				</a>
+			</div>
+
+			<!-- ======= Exceptions ======= -->
+			{% if formUser.username.errors %}
+			<ol>
+				{% for error in formUser.username.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formUser.password2.errors %}
+			<ol>
+				{% for error in formUser.password2.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formUser.email.errors %}
+			<ol>
+				{% for error in formUser.email.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formCustomer.dni.errors %}
+			<ol>
+				{% for error in formCustomer.dni.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formCustomer.date_birth.errors %}
+			<ol>
+				{% for error in formCustomer.date_birth.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formCustomer.cellphone_number.errors %}
+			<ol>
+				{% for error in formCustomer.cellphone_number.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formCustomer.name.errors %}
+			<ol>
+				{% for error in formCustomer.name.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			{% if formCustomer.surname.errors %}
+			<ol>
+				{% for error in formCustomer.surname.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+				{% endfor %}
+			</ol>
+			{% endif %}
+			<!-- END Exceptions -->
+
+			<form class="login100-form validate-form" action="{% url 'signup' %}" method="POST">
+				{% csrf_token %}
+
+				<!--User-->
+				<div class="wrap-input100 validate-input" data-validate="Enter user">
+					{{ formUser.username }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<!--Email-->
+				<div class="wrap-input100 validate-input" data-validate="Enter email">
+					{{ formUser.email }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="d-flex">
+					<!--Password-->
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						{{ formUser.password1 }}
+						<span class="focus-input100"></span>
+					</div>
+
+					<!--Password2-->
+					<div class="wrap-input100 validate-input ms-4" data-validate="Enter password again">
+						{{ formUser.password2 }}
+						<span class="focus-input100"></span>
+					</div>
+
+				</div>
+
+				<!--DNI-->
+				<div class="wrap-input100 validate-input" data-validate="Enter DNI">
+					{{ formCustomer.dni }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="d-flex">
+					<!--Name-->
+					<div class="wrap-input100 validate-input" data-validate="Enter name">
+						{{ formCustomer.name }}
+						<span class="focus-input100"></span>
+					</div>
+
+					<!--Surname-->
+					<div class="wrap-input100 validate-input ms-4" data-validate="Enter surname">
+						{{ formCustomer.surname }}
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<div class="d-flex">
+					<!--Date Birth-->
+					<div class="wrap-input100 validate-input">
+						{{ formCustomer.date_birth }}
+						<span class="focus-input100"></span>
+					</div>
+
+					<!--Cellphone_number-->
+					<div class="wrap-input100 validate-input ms-4" data-validate="Enter the cellphone number">
+						{{ formCustomer.cellphone_number }}
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<div class="d-flex">
+					<!--Gender-->
+					<div class="wrap-input100 validate-input" data-validate="Enter gender">
+						<p>Genre</p>
+						{{ formCustomer.gender }}
+						<span class="focus-input100"></span>
+					</div>
+
+					<!--Literary_Prefer-->
+					<div class="wrap-input100 validate-input ms-4" data-validate="Enter literary prefer">
+						<p>Literary Prefer</p>
+						{{ formCustomer.literary_prefer }}
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+				<!--Birthplace-->
+				<div class="wrap-input100 validate-input" data-validate="Enter literary prefer">
+					<p>Birthplace</p>
+					{{ formCustomer.media.js }}
+					<p>Country</p>
+					{{ formCustomer.country }}
+					<p>State</p>
+					{{ formCustomer.region }}
+					<p>City</p>
+					{{ formCustomer.city }}
+				</div>
+
+				<!--Button-->
+				<div class="container-login100-form-btn">
+					<div class="wrap-login100-form-btn">
+						<div class="login100-form-bgbtn"></div>
+						<button class="login100-form-btn">
+							Let's go!
+						</button>
+					</div>
+				</div>
+
+				<!-- Link to signup -->
+				<div class="text-center p-t-115">
+					<span class="txt1">
+						Already have one?
+					</span>
+
+					<a class="txt2" href="/signin">
+						Login
+					</a>
+				</div>
+
+				<!-- Free Use License (?) -->
+				<div class="text-center p-t-115">
+					<span class="txt3">
+						By registering you accept the Privacy and Data Processing Policies of Prólogos.
+					</span>
+				</div>
+
+			</form>
+			
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

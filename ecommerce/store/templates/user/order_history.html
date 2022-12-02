@@ -1,0 +1,318 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/result.css' %}" rel="stylesheet">
+<title>Prólogos - Order History</title>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="grid search">
+
+                <!-- ======= History tables ======= -->
+                <div class="grid-body">
+
+                    <h2>
+                        <lord-icon src="https://cdn.lordicon.com/svpxtchp.json" trigger="hover" colors="primary:#666666"
+                            state="hover" style="width:50px;height:50px">
+                        </lord-icon>
+                        <b>History</b>
+                    </h2>
+                    <hr>
+
+                    <!--Nav tabs-->
+                    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+                        
+                        <li class="nav-item" role="presentation">
+                            <button class="btn tab-btn active" id="pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-purchases" type="button" role="tab" aria-controls="pills-home"
+                                aria-selected="true">
+                                <lord-icon src="https://cdn.lordicon.com/lqsduwhb.json" trigger="hover"
+                                    colors="primary:#ffffff" state="hover-2" style="width:32px;height:32px">
+                                </lord-icon>
+                                Purchases
+                            </button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="btn tab-btn" id="pills-contact-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-reserves" type="button" role="tab" aria-controls="pills-contact"
+                                aria-selected="false">
+                                <lord-icon src="https://cdn.lordicon.com/eanmttmw.json" trigger="hover"
+                                    colors="primary:#ffffff" style="width:32px;height:32px">
+                                </lord-icon>
+                                Bookings
+                            </button>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="btn tab-btn" id="pills-contact-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-refunds" type="button" role="tab" aria-controls="pills-contact"
+                                aria-selected="false">
+                                <lord-icon src="https://cdn.lordicon.com/nxooksci.json" trigger="hover"
+                                    colors="primary:#ffffff" style="width:32px;height:32px">
+                                </lord-icon>
+                                Refunds
+                            </button>
+                        </li>
+
+                    </ul>
+                    <!-- ======= Tables content ======= -->
+                    <div class="tab-content" id="pills-tabContent">
+                        <!-- ======= Purchases ======= -->
+                        <div class="tab-pane fade show active" id="pills-purchases" role="tabpanel"
+                            aria-labelledby="pills-home-tab" tabindex="0">
+                            <div class="text-center mb-5">
+
+                                <h4><b>Purchase History</b></h4>
+                                <hr>
+
+                                <div class="table-responsive mt-3 payment-card-list" id="purchases">
+                                    <table class="table table-hover" id="purchaseHistory">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>ID</th>
+                                                <th>
+                                                    <i class="bi bi-calendar-date"></i>
+                                                    Date
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-cash-coin"></i>
+                                                    Amount
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-box2-fill"></i>
+                                                    State
+                                                </th>
+                                                <th>Info</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for order_history, order_info, shipping_history in mylist %}
+                                            <!-- Order History-->
+                                            <tr class="text-center">
+                                                <td id="ID">{{ order_info.order_number }}</td>
+                                                <td id="date" class="text-muted">{{ order_info.order_date }}</td>
+                                                <td id="amount" class="align-items-center">${{order_info.get_final_price }}</td>
+                                                <td id="state" class="text-muted">{{ shipping_history.state_shipping }}
+                                                </td>
+                                                <td id="info">
+
+                                                    {% if shipping_history.state_shipping != 'CANCELED FOR RETURN' %}
+                                                    <button class="transparent-btn" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal{{ order_info.order_number }}">
+                                                        <lord-icon src="https://cdn.lordicon.com/ncxoarcp.json"
+                                                            trigger="hover" colors="primary:#e03a3c"
+                                                            style="width:32px;height:32px">
+                                                        </lord-icon>
+                                                    </button>
+                                                    {% endif %}
+                                                    
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="modal{{ order_info.order_number }}"
+                                                        tabindex="-1" aria-labelledby="purchaseInfoModal"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="purchaseInfoModal">
+                                                                        Purchase Info</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!--Book info-->
+                                                                    <div
+                                                                        class="row mb-4 d-flex justify-content-between align-items-center">
+                                                                        {% for i in order_history %}
+                                                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                                                            <a
+                                                                                href="{% url 'item' i.book_order.id_book %}">
+                                                                                <img src="{{ i.book_order.imageURL }}"
+                                                                                    class="img-fluid rounded-3">
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                                                            <h6 class="text-black mb-0">{{i.book_order.title }}</h6>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                                                                            <h6 class="mb-0">{{ i.quantity }}</h6>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-3 col-lg-2 col-xl-3 offset-lg-1">
+                                                                            <h6 class="mb-0">${{ i.book_order.price }} c/u
+                                                                            </h6>
+                                                                        </div>
+
+                                                                        <hr class="my-4">
+                                                                        {% endfor %}
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer btn-group">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <a href="{% url 'return_order' order_info.order_number %}" type="button"
+                                                                        class="btn btn-danger">
+                                                                        <i class="bi bi-cash-coin"></i>
+                                                                        Request refund
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ======= Bookings ======= -->
+                        <div class="tab-pane fade" id="pills-reserves" role="tabpanel"
+                            aria-labelledby="pills-profile-tab" tabindex="0">
+                            <div class="text-center mb-5">
+
+                                <h4><b>Bookings History</b></h4>
+                                <hr>
+
+                                <div class="table-responsive mt-3 payment-card-list" id="purchases">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>ID</th>
+                                                <th>
+                                                    <i class="bi bi-book-half"></i>
+                                                    Book
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-bookmarks"></i>
+                                                    Stock
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-calendar-date"></i>
+                                                    Booking Date
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for booking in bookings %}
+                                            <!-- Order History-->
+                                            <tr class="text-center">
+                                                <td id="ID">{{ booking.id_booking }}</td>
+                                                <td id="book" class="fw-bold">
+                                                    <a href="{% url 'item' booking.reserved_book.id_book %}">{{ booking.reserved_book.title }}</a>
+                                                </td>
+                                                <td id="quantity" class="align-items-center">{{ booking.quantity }}
+                                                </td>
+                                                <td id="dateBooking" class="align-items-center text-muted">{{ booking.booking_hour }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ======= Refunds ======= -->
+                        <div class="tab-pane fade" id="pills-refunds" role="tabpanel"
+                            aria-labelledby="pills-contact-tab" tabindex="0">
+                            <div class="text-center mb-5">
+
+                                <h4><b>Refunds History</b></h4>
+                                <hr>
+
+                                <div class="table-responsive mt-3 payment-card-list" id="purchases">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>ID</th>
+                                                <th>
+                                                    <i class="bi bi-cart4"></i>
+                                                    Purchase Info
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-calendar-date"></i>
+                                                    Date
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-cash-coin"></i>
+                                                    Amount
+                                                </th>
+                                                <th>
+                                                    <i class="bi bi-box2-fill"></i>
+                                                    State
+                                                </th>
+                                                <th>Cancel</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <!-- Order History-->
+                                            <tr class="text-center">
+                                                <td id="ID">123456</td>
+                                                <td id="purchaseInfo">Purchase ID</td>
+                                                <td id="date" class="text-muted">12 Jul 2020, 12:30 PM</td>
+                                                <td id="amount" class="align-items-center">$52.9 </td>
+                                                <td id="state" class="text-muted">Under Evaluation</td>
+                                                <td id="cancel">
+                                                    <button class="transparent-btn" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteRefund" type="button">
+                                                        <lord-icon src="https://cdn.lordicon.com/jmkrnisz.json"
+                                                            trigger="morph" colors="primary:#e03a3c" state="morph-fill"
+                                                            style="width:32px;height:32px">
+                                                        </lord-icon>
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="deleteRefund" tabindex="-1"
+                                                        aria-labelledby="deleteRefundModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5"
+                                                                        id="deleteRefundModalLabel">
+                                                                        Are you Sure?</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    This request hasn't been evaluated yet. Are you
+                                                                    sure?
+                                                                </div>
+                                                                <div class="modal-footer btn-group d-flex" role="group">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-danger">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

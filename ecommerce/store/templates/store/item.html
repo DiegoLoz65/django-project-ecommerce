@@ -1,0 +1,135 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/shop.css' %}" rel="stylesheet">
+
+<!-- Page Title per book-->
+{% for b in book %}
+<title>Prólogos - {{ b.title }}</title>
+{% endfor %}
+
+<!-- ======= Product Section ======= -->
+<div class="py-0">
+    <section class="py-5 bg-dark">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+
+                {% for b in book %}
+                <!-- Image -->
+                <div class="col-md-6 card-image-wrapper">
+                    <img class="card-image mb-5 mb-md-0" src="{{ b.imageURL }}" alt="..." />
+                </div>
+
+                <!-- Product details-->
+                <div class="col-md-6 light-font">
+                    <div class="small mb-1">{{ b.author }}</div>
+                    <h1 class="display-5 fw-bolder">{{ b.title }}</h1>
+                    <div class="fs-5">
+                        <span>$ {{ b.price }} COP</span>
+                    </div>
+                    <div class="fs-5 mb-4">
+                        {% if b.total_quantity == 0 %}
+                        <h6 style="color:brown;">Stock: {{ b.total_quantity }}</h6>
+                        <h6 style="color:brown;">This book is not available at the moment!</h6>
+                        {% else %}
+                        <h6>Stock: {{ b.total_quantity }}</h6>
+                        {% endif %}
+                    </div>
+
+                    <!--Book Details-->
+                    <div class="mb-4 pt-3" id="details">
+                        <!---->
+                        <div class="detail-info">
+                            <div id="title">Publisher</div>
+                            <br>
+                            <div id="value">{{ b.editorial }}</div>
+                        </div>
+                        <!---->
+                        <div class="detail-info">
+                            <div id="title">Language</div>
+                            <br>
+                            <div>{{ b.idiom }}</div>
+                        </div>
+                        <!---->
+                        <div class="detail-info">
+                            <div id="title">Genre</div>
+                            <br>
+                            <div id="value">{{ b.literary_gender }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Add to cart and booking -->
+                    {% if b.total_quantity != 0 %}
+                    <div class="d-flex btn-group">
+                        <a data-product="{{b.id_book}}" data-action="add" class="btn add-btn flex-shrink-0 update-cart"
+                            type="button">
+                            <lord-icon src="https://cdn.lordicon.com/udbbfuld.json" trigger="hover"
+                                colors="primary:#ffffff" style="width:32px;height:32px">
+                            </lord-icon>
+                            Add to cart
+                        </a>
+
+                        <a data-product="{{b.id_book}}" data-action="reserve"
+                            class="btn reserve-btn flex-shrink-0 update-cart" type="button">
+                            <lord-icon src="https://cdn.lordicon.com/eanmttmw.json" trigger="hover"
+                                colors="primary:#ffffff" state="hover-1" style="width:32px;height:32px">
+                            </lord-icon>
+                            Reserve book
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Related items section-->
+    <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="fw-bolder mb-4">Related books</h2>
+
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for book in books %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="{{ book.imageURL }}" alt="..." />
+
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ book.title }}</h5>
+                                <!-- Product author-->
+                                <h6>{{ book.author }}</h6>
+                                <!-- Product price-->
+                                <b>${{ book.price }} COP</b>
+                            </div>
+                        </div>
+
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent btn-group">
+                            <a class="btn btn-outline-dark mt-auto flex-shrink-0" id="seeBook" href="{% url 'item' book.id_book %}">
+                                <i class="bi bi-eye-fill"></i>
+                                View</a>
+
+                            <a data-product="{{book.id_book}}" data-action="add"
+                                class="btn btn-outline-dark mt-auto flex-shrink-0 update-cart" type="button"
+                                id="addToCart">
+                                <i class="bi bi-cart-plus-fill"></i>
+                                Add</a>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock content %}

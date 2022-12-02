@@ -1,0 +1,87 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/result.css' %}" rel="stylesheet">
+<title>Prólogos - Request refund</title>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="grid search">
+                <div class="grid-body">
+
+                    <h2>
+                        <lord-icon src="https://cdn.lordicon.com/kulwmpzs.json" trigger="hover" colors="primary:#666666"
+                            style="width:50px;height:50px">
+                        </lord-icon>
+                        <b>Refund request</b>
+                    </h2>
+                    <hr>
+
+                    <!-- ======= Purchase Info ======= -->
+                    <div class="row">           
+                        <div class="mb-3 d-flex justify-content-evenly">
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Purchase ID:</b></h5>
+                                <label class="form-label">ID</label>
+                            </div>
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Amount:</b></h5>
+                                <label class="form-label">$Price</label>
+                            </div>
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Date:</b></h5>
+                                <label class="form-label">Date</label>
+                            </div>
+
+                        </div>
+
+                        <!-- Request reason -->
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">*Please select a reason for the
+                                request:</label>
+                            <select type="s" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Choose the reason">
+                                <option>Product is damaged</option>
+                                <option>Product is not as described</option>
+                                <option>Product is not as expected</option>
+                            </select>
+                        </div>
+
+                        <!-- Request description -->
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">*Give us a comment: What went
+                                wrong with the purchase?</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        </div>
+
+                        <!-- Request validation -->
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">*Give us an email address so we can
+                                send you info when your request is beign evaluated.</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+
+                        <!-- Upload request button -->
+                        <div class="mb-3">
+                            <a type="button" class="continue-btn">
+                                <lord-icon src="https://cdn.lordicon.com/jxwksgwv.json" trigger="hover"
+                                    colors="primary:#ffffff" state="hover-2" style="width:32px;height:32px">
+                                </lord-icon>
+                                Request refund
+                            </a>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

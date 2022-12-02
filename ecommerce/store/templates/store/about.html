@@ -1,0 +1,255 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'css/about.css' %}" rel="stylesheet">
+<title>Prólogos - About Us</title>
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li>About us</li>
+            </ol>
+            <h2>A little about Prólogos</h2>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Single Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+
+                    <!--Who we are-->
+                    <article class="entry entry-single" id="who">
+
+                        <div class="entry-img">
+                            <img src="{% static 'images/blog/blog-1.png' %}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            We are Prólogos!
+                            <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" trigger="morph"
+                                colors="primary:#666666" state="morph" style="width:50px;height:50px">
+                            </lord-icon>
+                        </h2>
+
+                        <div class="entry-content">
+                            <p>
+                                Prólogos is a bookstore that was born in 2022 with the idea of ​​offering a
+                                different
+                                experience to the user, we want to be the best bookstore in the world, we want to
+                                offer
+                                the best service and the best products, we want to be the best bookstore in the
+                                world!
+                            </p>
+
+                            <blockquote>
+                                <p>"Books are a uniquely portable magic."</p>
+                                <h6 class="text-muted">- Stephen King</h6>
+                            </blockquote>
+                        </div>
+
+                    </article>
+
+                    <!--History-->
+                    <article class="entry entry-single" id="history">
+                        <div class="entry-img">
+                            <img src="{% static 'images/blog/blog-2.jpg' %}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            Our history
+                            <lord-icon src="https://cdn.lordicon.com/svpxtchp.json" trigger="hover"
+                                colors="primary:#666666" state="hover" style="width:50px;height:50px">
+                            </lord-icon>
+                        </h2>
+
+                        <div class="entry-content">
+                            <p>
+                                We are a group of students from the UTP (Universidad Tecnológica de Pereira), who
+                                are passionate about
+                                technology and software development. We are currently in the 8th semester of our
+                                careers, and we are looking for a way to put into practice all the knowledge we have
+                                acquired throughout our careers.
+                            </p>
+                            <p>
+                                We are currently developing a web application that will allow us to put into
+                                practice
+                                all the knowledge we have acquired throughout our careers. Thus, Prólogos was born!
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <!--Our team-->
+                    <article class="entry entry-single" id="team">
+                        <!-- ======= Team Section ======= -->
+                        <section id="team" class="team section-bg">
+                            <div class="container" data-aos="fade-up">
+
+                                <div class="section-title">
+                                    <h2>Our Team
+                                        <lord-icon src="https://cdn.lordicon.com/nkrqhzkh.json" trigger="hover"
+                                            colors="primary:#ffffff" style="width:50px;height:50px">
+                                        </lord-icon>
+                                    </h2>
+                                </div>
+
+                                <div class="row">
+
+                                    <!--Team staff-->
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="member-img">
+                                                <img src="{% static 'images/blog/team/team-1.jpg' %}" class="img-fluid"
+                                                    alt="">
+                                                <div class="social">
+                                                    <a href="https://github.com/Sebusa"><i class="bi bi-github"></i></a>
+                                                    <a href="https://www.linkedin.com/in/sebastian-buitrago-sebusa/"><i
+                                                            class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>Sebastián Buitrago</h4>
+                                                <span>
+                                                    - Front-End Developer
+                                                </span>
+                                                <span>
+                                                    - UI/UX designer
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="member-img">
+                                                <img src="{% static 'images/blog/team/team-2.jpg' %}" class="img-fluid"
+                                                    alt="">
+                                                <div class="social">
+                                                    <a href="https://github.com/DiegoLoz65"><i
+                                                            class="bi bi-github"></i></a>
+                                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>Diego Lozano</h4>
+                                                <span>
+                                                    - Back-End Developer
+                                                </span>
+                                                <span>
+                                                    - Scrum Master
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="member-img">
+                                                <img src="{% static 'images/blog/team/team-3.jpg' %}" class="img-fluid"
+                                                    alt="">
+                                                <div class="social">
+                                                    <a href="https://github.com/SantiagoSG8"><i
+                                                            class="bi bi-github"></i></a>
+                                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>Santiago Soto</h4>
+                                                <span>
+                                                    - Front-End Developer
+                                                </span>
+                                                <span>
+                                                    - Software Architect
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                            <div class="member-img">
+                                                <img src="{% static 'images/blog/team/team-4.jpg' %}" class="img-fluid"
+                                                    alt="">
+                                                <div class="social">
+                                                    <a href=""><i class="bi bi-github"></i></a>
+                                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>Eldrich Flóres</h4>
+                                                <span>
+                                                    - Back-End Developer
+                                                </span>
+                                                <span>
+                                                    - Tester
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </section><!-- End Team Section -->
+
+                    </article>
+
+                    <!--Vision-->
+                    <article class="entry entry-single" id="vision">
+                        <div class="entry-img">
+                            <img src="{% static 'images/blog/blog-3.jpg' %}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            Our vision
+                            <lord-icon src="https://cdn.lordicon.com/jffauosv.json" trigger="hover"
+                                colors="primary:#666666" style="width:50px;height:50px">
+                            </lord-icon>
+                        </h2>
+
+                        <div class="entry-content">
+                            <p>
+                                Our vision is to be a company that is recognized for its quality and innovation in
+                                the development of software solutions, which allow us to be a reference in the
+                                market.
+                            </p>
+                            <h4>Contact us! at prologos.libreria@gmail.com</h4>
+                        </div>
+
+                    </article>
+                    <!-- End blog entry -->
+
+                </div><!-- End blog entries list -->
+
+                <!-- Anchors sidebar -->
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <h3 class="sidebar-title">Articles</h3>
+                        <hr>
+                        <div class="sidebar-item categories">
+                            <ul>
+                                <li><a href="#who">Who we are?</a></li>
+                                <li><a href="#history">Our history</a></li>
+                                <li><a href="#team">Our team</a></li>
+                                <li><a href="#vision">Our vision</a></li>
+                            </ul>
+                        </div><!-- End sidebar categories-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End Blog Single Section -->
+
+</main>
+
+{% endblock content %}

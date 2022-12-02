@@ -1,0 +1,204 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<title>Prólogos - Bookings </title>
+<link href="{% static 'css/shop.css' %}" rel="stylesheet">
+
+<section class="h-100 h-custom">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+
+                            <!-- ====== Booking Items ====== -->
+                            <div class="col-lg-8">
+                                <div class="p-5">
+
+                                    <!--Title and Number of Books-->
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Bookings
+                                            <lord-icon src="https://cdn.lordicon.com/eanmttmw.json" trigger="hover"
+                                                colors="primary:#111111" state="hover-2" style="width:50px;height:50px">
+                                            </lord-icon>
+                                        </h1>
+                                        <h6 class="mb-0 text-muted">{{ total_reserved_books }} books</h6>
+                                    </div>
+                                    <hr class="my-4">
+
+                                    <!--Shopping Cart Items-->
+                                    {% if total_reserved_books == 0 %}
+                                    <!--Empty Cart message-->
+                                    <div class="justify-content-center center-text align-items-center mb-5">
+                                        <h2 class="mb-0">You don't have any booking yet.
+                                            <lord-icon src="https://cdn.lordicon.com/iizhfivi.json" trigger="hover"
+                                                colors="primary:#b4b4b4" state="hover" style="width:100px;height:100px">
+                                            </lord-icon>
+                                        </h2>
+                                        <h6>So? What are you waiting for?</h6>
+                                    </div>
+
+                                    {% else %}
+                                    {% for detail in booking %}
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <a href="{% url 'item' detail.reserved_book.id_book %}">
+                                                <img src="{{ detail.reserved_book.imageURL }}"
+                                                    class="img-fluid rounded-3">
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">{{ detail.reserved_book.title }}</h6>
+                                            <h6 class="text-black mb-0">Hardcover edition</h6>
+                                        </div>
+
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <h6>Per unit</h6>
+                                            <h6>${{ detail.reserved_book.price }}</h6>
+                                        </div>
+
+                                        <!--Add more or less samples-->
+                                        <div class="col-md-1 col-lg-3 d-flex">
+                                            <p class="quantity">{{ detail.quantity }}</p>
+                                            <div class="quantity">
+                                                <a data-product="{{ detail.reserved_book.id_book }}"
+                                                    data-action="reserve" class="chg-quantity update-cart">
+                                                    <lord-icon src="https://cdn.lordicon.com/xdakhdsq.json"
+                                                        trigger="hover" colors="primary:#16c72e"
+                                                        style="width:32px;height:32px">
+                                                    </lord-icon>
+                                                </a>
+                                                <a data-product="{{ detail.reserved_book.id_book }}"
+                                                    data-action="remove_reserve" class="chg-quantity update-cart">
+                                                    <lord-icon src="https://cdn.lordicon.com/albqovim.json"
+                                                        trigger="hover" colors="primary:#c71f16"
+                                                        style="width:32px;height:32px">
+                                                    </lord-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <h6 class="fw-bold">Booking date</h6>
+                                            <h6>{{ detail.booking_hour }}</h6>
+                                        </div>
+                                    </div>
+                                    <hr class="my-4">
+                                    {% endfor %}
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <!-- ====== Summary =======-->
+                            <div class="col-lg-4 summary-bg summary-cf">
+                                <div class="p-5">
+
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">
+                                        <lord-icon src="https://cdn.lordicon.com/jvihlqtw.json" trigger="hover"
+                                            colors="primary:#ffffff,secondary:#ffffff" style="width:50px;height:50px">
+                                        </lord-icon>
+                                        Summary
+                                    </h3>
+                                    <hr class="my-4">
+
+                                    <!--Total Price-->
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total</h5>
+                                        <h5>$ {{ total_price }}</h5>
+                                    </div>
+
+                                    <!--Continue shopping-->
+                                    <a href="{% url 'store' %}" class="shopping-btn">
+                                        <i class="bi bi-cart-plus-fill"></i>
+                                        Keep shopping
+                                    </a>
+                                    <hr class="my-4">
+
+                                    <!-- Continue -->
+                                    <a class="shopping-btn continue" data-bs-toggle="modal" data-bs-target="#continue"
+                                        type="button">
+                                        <lord-icon src="https://cdn.lordicon.com/jxwksgwv.json" trigger="hover"
+                                            colors="primary:#ffffff" state="hover-2" style="width:32px;height:32px">
+                                        </lord-icon>
+                                        Let's purchase!
+                                    </a>
+
+                                    <!-- Continue Modal -->
+                                    {% if total_reserved_books == 0 %}
+                                    <div class="modal fade" id="continue" tabindex="-1"
+                                        aria-labelledby="continueModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="color:#111111;">
+                                                    <h1 class="modal-title fs-5" id="continueModalLabel">
+                                                        There is not any book here!</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" style="color:#111111;">
+                                                    Where are you going? Go add a book first!
+                                                </div>
+                                                <div class="modal-footer btn-group d-flex" role="group">
+                                                    <button type="button" class="btn btn-success"
+                                                        data-bs-dismiss="modal">
+                                                        Ok</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="modal fade" id="continue" tabindex="-1"
+                                        aria-labelledby="continueModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="color:#111111;">
+                                                    <h1 class="modal-title fs-5" id="continueModalLabel">
+                                                        Continue to checkout</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" style="color:#111111;">
+                                                    We're going to do this purchase. Please select your shipment method.
+                                                </div>
+                                                <div class="modal-footer d-flex" role="group">
+                                                    <a type="button" class="btn btn-success">
+                                                        <i class="bi bi-shop"></i>
+                                                        Pickup in store</a>
+
+                                                    <form method='get' action="{% url 'bookings' %}">
+                                                        <button class="btn btn-danger" type="submit"
+                                                            value="add_to_order" name="add_to_order">
+                                                            <i class="bi bi-house-heart-fill"></i>
+                                                            Send Home
+                                                        </button>
+                                                    </form>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

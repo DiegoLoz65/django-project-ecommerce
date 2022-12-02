@@ -1,0 +1,101 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<title>Prólogos - Shop</title>
+<link href="{% static 'css/news.css' %}" rel="stylesheet">
+
+<!-- ======= Carousel Slider ======= -->
+<div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img src="{% static '/images/shop/slider/item-1.jpg' %}" class="d-block carousel-img">
+            <div class="carousel-caption-text d-none d-md-block">
+                <h4><span class="carousel-item-title">Classic</span></h4>
+                <p>The everlasting opus magnum of our world.</p>
+            </div>
+        </div>
+
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="{% static '/images/shop/slider/item-2.jpg' %}" class="d-block carousel-img">
+            <div class="carousel-caption-text d-none d-md-block">
+                <h4><span class="carousel-item-title">Hispanic</span></h4>
+                <p>Go take a look, maybe you can find the best book you've ever read.</p>
+            </div>
+        </div>
+
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="{% static '/images/shop/slider/item-3.jpg' %}" class="d-block carousel-img">
+            <div class="carousel-caption-text d-none d-md-block">
+                <h4><span class="carousel-item-title">Manga</span></h4>
+                <p>Don't deny it. We also love it!</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"></span>
+    </button>
+</div>
+
+<!-- ====== Items Cards Section ====== -->
+<section class="py-5">
+    <h2 class="fw-bolder mb-4 text-center">Our books</h2>
+    <div class="container px-4 px-lg-5 mt-5">
+        {% if quantity != 0 %}
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for book in books %}
+            <div class="col mb-5">
+
+                <!-- Book Card -->
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{ book.imageURL }}" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h4 class="fw-bolder">{{ book.title }}</h4>
+                            <!-- Product author-->
+                            <h6>{{ book.author }}</h6>
+                            <!-- Product price-->
+                            <b>${{ book.price }} COP</b>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent btn-group">
+                        <a class="btn btn-outline-dark mt-auto flex-shrink-0" id="seeBook"
+                            href="{% url 'item' book.id_book %}">
+                            <i class="bi bi-eye-fill"></i>
+                            View</a>
+                        <a data-product="{{book.id_book}}" data-action="add"
+                            class="btn btn-outline-dark mt-auto flex-shrink-0 update-cart" type="button" id="addToCart">
+                            <i class="bi bi-cart-plus-fill"></i>
+                            Add</a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+
+        <!-- Book not found -->
+        <div class="justify-content-center mb-5" style="text-align:center;">
+            <h2 class="mb-0">There is nothing to see here.
+                <lord-icon src="https://cdn.lordicon.com/qvbrkejx.json" trigger="hover" colors="primary:#b4b4b4"
+                    state="hover" style="width:100px;height:100px">
+                </lord-icon>
+            </h2>
+            <h6>Sorry! There is no match with your search.</h6>
+        </div>
+
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

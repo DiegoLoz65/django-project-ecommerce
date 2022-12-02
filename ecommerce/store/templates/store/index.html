@@ -1,0 +1,215 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<title>Prólogos - Home</title>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container" data-aos="zoom-out" data-aos-delay="100">
+    <div class="row">
+      <div class="col-xl-6">
+        {% if user.is_authenticated %}
+        <h1>Welcome back, {{ user.username }}</h1>
+        <h2>What are you waiting for buying that book?</h2>
+        <a href="/store" class="btn-get-started scrollto">
+          Go for it
+          <i class="bi bi-arrow-up-right"></i>
+        </a>
+        {% else %}
+        <h1>Are you looking for a book?</h1>
+        <h2>Signup now and go for that delighted book.</h2>
+        <a href="/signup" class="btn-get-started scrollto">Signup</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<main id="main">
+
+  <!-- ======= Editorials Slider ======= -->
+  <section id="publishers" class="publishers">
+    <div class="container" data-aos="zoom-in">
+
+      <div class="publishers-slider swiper">
+        <div class="swiper-wrapper align-items-center">
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-1.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-2.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-3.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-4.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-5.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-6.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-7.png' %}" class="img-fluid"
+              alt=""></div>
+          <div class="swiper-slide"><img src="{% static '/images/home/publishers/publisher-8.png' %}" class="img-fluid"
+              alt=""></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row no-gutters">
+        <div class="content col-xl-5 d-flex align-items-stretch">
+          <div class="content">
+            <h3>Yet another bookshop</h3>
+            <p>
+              But not any bookshop. We bring you some cool stuff. Interested? Wanna know more about us? ;)
+            </p>
+            <a href="{% url 'about' %}" class="about-btn"><span>About us</span> <i class="bx bx-chevron-right"></i></a>
+          </div>
+        </div>
+        <!--About Info-->
+        <div class="col-xl-7 d-flex align-items-stretch">
+          <div class="icon-boxes d-flex flex-column justify-content-center">
+            <div class="row">
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                <lord-icon src="https://cdn.lordicon.com/msetysan.json" trigger="hover" colors="primary:#e03a3c"
+                  style="width:50px;height:50px">
+                </lord-icon>
+                <h4>News</h4>
+                <p>Wanna be the first to look for the new and fresh? Don't worry, we let you know.</p>
+              </div>
+
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+                <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" trigger="morph" colors="primary:#e03a3c"
+                  state="morph" style="width:50px;height:50px">
+                </lord-icon>
+                <h4>Made in Colombia</h4>
+                <p>That's right, we're totally proud of beign a colombian bookshop.</p>
+              </div>
+
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                <lord-icon src="https://cdn.lordicon.com/uetqnvvg.json" trigger="hover"
+                  colors="primary:#e03a3c,secondary:#e03a3c" style="width:70px;height:70px">
+                </lord-icon>
+                <h4>Shops and home service</h4>
+                <p>Wanna pickup your books? Or rather prefer being sent to your home? You choose.</p>
+              </div>
+
+              <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+                <lord-icon src="https://cdn.lordicon.com/yqzmiobz.json" trigger="hover" colors="primary:#e03a3c"
+                  state="hover" style="width:50px;height:50px">
+                </lord-icon>
+                <h4>Totally secured</h4>
+                <p>You can buy online anytime. Don't be scared, we protect your data.</p>
+              </div>
+            </div>
+          </div><!-- End .content-->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= FAQ Section ======= -->
+  <section id="faq" class="faq">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>FAQ</h2>
+      </div>
+
+      <ul class="faq-list accordion" data-aos="fade-up">
+
+        <!-- Frequently Asked Questions -->
+        <li>
+          <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq1">What do I need to do to buy something?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              Just signup, add some books to your cart and pay. That's it.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <a data-bs-toggle="collapse" data-bs-target="#faq2" class="collapsed">How do I pay for my order?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              You need to register a credit or debit card into your account. We also manage your balance so you only
+              need to add some cash to your account.
+              Pretty simple, right?
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <a data-bs-toggle="collapse" data-bs-target="#faq3" class="collapsed">Where can I go and pickup my order?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              You can pickup your order at any of our stores (We are currently in Colombia only). You can also choose to
+              have your order sent to your home.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <a data-bs-toggle="collapse" data-bs-target="#faq4" class="collapsed">I didn't like the book. Can I return it?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              As long as the book is in perfect conditions, you can request a refund and we'll let you know how to
+              proceed.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <a data-bs-toggle="collapse" data-bs-target="#faq5" class="collapsed">I'm not sure about a book. Can I reserve
+            it?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              Yes, you can reserve a book for 24 hours. Just add it to your cart and checkout. You'll have 24 hours to
+              pay for it.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <a data-bs-toggle="collapse" data-bs-target="#faq6" class="collapsed">I got another questions. How can I
+            contact you?
+            <i class="bx bx-chevron-down icon-show"></i>
+            <i class="bx bx-x icon-close"></i>
+          </a>
+          <div id="faq6" class="collapse" data-bs-parent=".faq-list">
+            <p>
+              You can contact us by email at prologos.libreria@gmail.com
+            </p>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </section>
+  
+</main>
+
+{% endblock content %}

@@ -1,0 +1,2 @@
+# django-project-ecommerce
+This project is the web page of a bookstore where the administrators will be able to manage everything related to the bookstore and the users will be able to buy and reserve books.

@@ -1,0 +1,273 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<title>Prólogos - Checkout</title>
+<link href="{% static 'css/shop.css' %}" rel="stylesheet">
+
+<section class="h-100 h-custom">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+
+                            <!-- ====== Checkout Info ====== -->
+                            <div class="col-lg-7">
+                                <div class="p-5">
+
+                                    <!--Title and Number of Books-->
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Checkout
+                                            <lord-icon src="https://cdn.lordicon.com/yqzmiobz.json" trigger="hover"
+                                                colors="primary:#111111" style="width:50px;height:50px">
+                                            </lord-icon>
+                                        </h1>
+                                    </div>
+                                    <hr class="my-4">
+
+                                    <!--Purchase Items-->
+                                    {% for detail in details %}
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <a href="{% url 'item' detail.book.id_book %}">
+                                                <img src="{{ detail.book.imageURL }}" class="img-fluid rounded-3">
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">{{ detail.book_order.title }}</h6>
+                                            <h6 class="text-black mb-0">Hardcover edition</h6>
+                                        </div>
+
+                                        <div class="col-md-1 col-lg-1 d-flex">
+                                            <p class="quantity">{{ detail.quantity }}</p>
+                                        </div>
+
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <h6 class="fw-bold">Price</h6>
+                                            <h6>${{ detail.subtotal_price }}</h6>
+                                        </div>
+                                    </div>
+                                    <hr class="my-4">
+                                    {% endfor %}
+
+                                    <a class="btn btn-outline-dark" href="{% url 'cart' %}">
+                                        <i class="bi bi-arrow-left"></i>
+                                        Back to Cart
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- ====== Address Info =======-->
+                            <div class="col-lg-5 summary-bg summary-cf">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">
+                                        <lord-icon src="https://cdn.lordicon.com/osuxyevn.json" trigger="morph"
+                                            colors="primary:#ffffff" state="morph-1" style="width:50px;height:50px">
+                                        </lord-icon>
+                                        Address Info
+                                    </h3>
+                                    <hr class="my-4">
+
+                                    <!--User Address-->
+                                    <div class="box-element" id="form-wrapper">
+                                        {% for message in messages %}
+    
+                                            <div class="alert alert-success">
+                                                <a class="close" href="{% url 'manage_balance' %}" data-dismiss="alert">×</a>
+                                                {{ message }}
+                                            </div>
+
+                                        {% endfor %}
+                                        <form action="{% url 'checkout' %}" method="POST">
+                                            {% csrf_token %}
+                                            <p>Enter shipping details
+                                                
+                                            </p>
+                                            <div id="shippingInfo">
+                                                {{ shipping_form.media.js }}
+                                                <div class="form-field mb-3">
+                                                    <p>Country</p>
+                                                    {{ shipping_form.country }}
+                                                </div>
+                                                <div class="form-field mb-3 d-flex">
+                                                    <p class="me-5">State</p>
+                                                    {{ shipping_form.region }}
+                                                </div>
+                                                <div class="form-field mb-3 d-flex">
+                                                    <p class="me-5">City</p>
+                                                    {{ shipping_form.city }}
+                                                </div>
+                                                <div class="form-field mb-3">
+                                                    {{ shipping_form.address_shipping }}
+                                                </div>
+                                            </div>
+
+                                            <button class="purchase-btn login100-form-btn">
+                                                <lord-icon src="https://cdn.lordicon.com/yqzmiobz.json" trigger="morph"
+                                                    colors="primary:#ffffff" state="morph-check-in"
+                                                    style="width:32px;height:32px">
+                                                </lord-icon>
+                                                Complete Purchase
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <hr class="my-4">
+
+                                    <!--Total Price-->
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="text-uppercase">Total</h5>
+                                        <h5>$ {{ order.get_final_price }}</h5>
+                                    </div>
+                                    <small class="text-muted">*The money to pay comes directly from your
+                                        <a href="{% url 'manage_balance' %}">balance.</a></small>
+                                    <div class="mb-4"></div>
+                                    
+                                    {% if balance == 0 %}
+                                        <div class="alert alert-danger mt-3" role="alert">
+                                            You don't have enough money in your balance to complete the purchase.
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</section>
+
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
+
+<script>
+    var total = '{{ order.get_final_price }}'
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        style: {
+            color: 'blue',
+            shape: 'rect',
+        },
+
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: parseFloat(total).toFixed(2)
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                // Show a success message to the buyer
+                submitFormData()
+            });
+        }
+
+    }).render('#paypal-button-container');
+</script>
+
+<script type="text/javascript">
+    var shipping = '{{order.shipping}}'
+
+    if (shipping == 'False') {
+        document.getElementById('shipping-info').innerHTML = ''
+    }
+
+    if (user != 'AnonymousUser') {
+        document.getElementById('user-info').innerHTML = ''
+    }
+
+    if (shipping == 'False' && user != 'AnonymousUser') {
+        //Hide entire form if user is logged in and shipping is false
+        document.getElementById('form-wrapper').classList.add("hidden");
+        //Show payment if logged in user wants to buy an item that does not require shipping
+        document.getElementById('payment-info').classList.remove("hidden");
+    }
+
+    var form = document.getElementById('form')
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        console.log('Form Submitted...')
+        document.getElementById('form-button').classList.add("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+    })
+
+    /*
+    document.getElementById('make-payment').addEventListener('click', function(e){
+        submitFormData()
+    })
+    */
+
+    function submitFormData() {
+        console.log('Payment button clicked')
+
+        var userFormData = {
+            'name': null,
+            'email': null,
+            'total': total,
+        }
+
+        var shippingInfo = {
+            'address': null,
+            'city': null,
+            'state': null,
+            'zipcode': null,
+        }
+
+        if (shipping != 'False') {
+            shippingInfo.address = form.address.value
+            shippingInfo.city = form.city.value
+            shippingInfo.state = form.state.value
+            shippingInfo.zipcode = form.zipcode.value
+        }
+
+        if (user == 'AnonymousUser') {
+            userFormData.name = form.name.value
+            userFormData.email = form.email.value
+        }
+
+        console.log('Shipping Info:', shippingInfo)
+        console.log('User Info:', userFormData)
+
+        var url = "/process_order/"
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applicaiton/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ 'form': userFormData, 'shipping': shippingInfo }),
+
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction completed');
+
+                cart = {}
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+                window.location.href = "{% url 'store' %}"
+
+            })
+    }
+</script>
+
+{% endblock content %}

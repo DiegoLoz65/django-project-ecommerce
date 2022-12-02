@@ -1,0 +1,145 @@
+body {
+    margin-top: 100px;
+    background: #4f4f4f;
+}
+
+.btn {
+    margin-bottom: 5px;
+}
+
+.grid {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #666666;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid .grid-body {
+    padding: 15px 20px 15px 20px;
+    font-size: 0.9em;
+    line-height: 1.9em;
+}
+
+.search table tbody tr:hover {
+    cursor: pointer;
+    background-color: #e03a3c;
+}
+
+.search table tr:hover td {
+    color: #fff;
+}
+
+.search table tr td.image {
+    width: 50px;
+}
+
+.search table tr td img {
+    width: 50px;
+    height: 50px;
+}
+
+.search table tr td.price {
+    font-size: 1.5em;
+    line-height: 50px;
+}
+
+.search #price1,
+.search #price2 {
+    display: inline;
+    font-weight: 600;
+}
+
+/* PAGINATION*/
+.page-link {
+    color: #111;
+}
+
+.page-link:hover {
+    background-color: #e03a3c;
+    color: #fff;
+}
+
+/*ORDER BY BUTTON*/
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+/*Payment methods List Page*/
+.payment-card-list table tbody tr:hover {
+    cursor: auto;
+    background-color: #eee;
+}
+
+.payment-card-list table tr:hover td {
+    color: #111111;
+}
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+/*BUTTONS*/
+.continue-btn {
+    background: #e03a3c;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.continue-btn:hover {
+    background: #922729;
+    color: #fff;
+}

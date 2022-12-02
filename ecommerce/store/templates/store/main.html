@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<!--Imported files-->
+<head>
+
+  <!-- Meta data-->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/images/icons/favicon-black.png' %}" rel="icon" media="(prefers-color-scheme: light)" />
+  <link href="{% static '/images/icons/favicon-white.png' %}" rel="icon" media="(prefers-color-scheme: dark)" />
+  <link href="{% static '/images/icons/favicon-black.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static '/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!--Bootstrap server links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- Cookies script -->
+  <script type="text/javascript">
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken')
+
+    function getCookie(name) {
+      // Split cookie string and get all individual name=value pairs in an array
+      var cookieArr = document.cookie.split(";");
+
+      // Loop through the array elements
+      for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if (name == cookiePair[0].trim()) {
+          // Decode the cookie value and return
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+
+      // Return null if not found
+      return null;
+    }
+    var cart = JSON.parse(getCookie('cart'))
+
+    if (cart == undefined) {
+      cart = {}
+      console.log('Cart Created!', cart)
+      document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
+
+  </script>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <a href="/" class="logo me-auto">
+        <image src="{% static '/images/icons/logo-black.png' %}" alt="">
+      </a>
+
+      <!-- ====== Navbar ====== -->
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+
+          <!--SearchBar-->
+          <li>
+            <div class="search-bar">
+              <form action="{% url 'store' %}" method="GET">
+                <input type="text" name="q" value="{{ query|escape }}" placeholder="Search that book">
+                <button type="submit" class="search-button">
+                  <i class="bi bi-search"></i>
+                  <html lang="en">
+              </form>
+            </div>
+          </li>
+
+          <li><a class="nav-link scrollto" href="/">
+              <lord-icon src="https://cdn.lordicon.com/osuxyevn.json" trigger="morph" colors="primary:#e03a3c"
+                state="morph-2" style="width:32px;height:32px">
+              </lord-icon>
+              Home
+            </a></li>
+
+          <li><a class="nav-link scrollto" href="/store">
+              <lord-icon src="https://cdn.lordicon.com/kipaqhoz.json" trigger="morph" colors="primary:#e03a3c"
+                state="morph" style="width:32px;height:32px">
+              </lord-icon>
+              Books
+            </a></li>
+
+          <li><a class="nav-link scrollto" href="/shops">
+              <lord-icon src="https://cdn.lordicon.com/uitzjnpu.json" trigger="hover" colors="primary:#e03a3c"
+                style="width:32px;height:32px">
+              </lord-icon>
+              Shops
+            </a></li>
+
+          <li><a class="nav-link scrollto" href="{% url 'news' %}">
+              <lord-icon src="https://cdn.lordicon.com/isugonwi.json" trigger="hover" colors="primary:#e03a3c"
+                state="hover" style="width:32px;height:32px">
+              </lord-icon>
+              News
+            </a></li>
+
+          <!-- User logged -->
+          {% if user.is_authenticated %}
+          <div class="dropdown">
+            <a class="dropdown-toggle" id="Dropdown" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <lord-icon src="https://cdn.lordicon.com/hbvyhtse.json" trigger="hover" colors="primary:#e03a3c"
+                state="hover" style="width:32px;height:32px">
+              </lord-icon>
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'update_profile' %}">Edit profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'order_history' %}">Order History</a></li>
+              <li><a class="dropdown-item" href="{% url 'bookings' %}">Bookings</a></li>
+              <li><a class="dropdown-item" href="{% url 'manage_balance' %}">Payment methods</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="{% url 'exit' %}">Logout</a></li>
+            </ul>
+          </div>
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+
+      {% else %}
+      <!-- User not logged -->
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+
+      <a href="{% url 'signin' %}" class="get-started-btn scrollto">Login</a>
+
+      {% endif %}
+      
+      <!--Shopping Cart-->
+      <div class="d-flex">
+        <a class="btn btn-outline-dark shopping-cart" type="submit" href="{% url 'cart' %}">
+          <i class="bi-cart-fill me-1"></i>
+          <span class="badge bg-dark text-white ms-1 rounded-pill">{{ order.get_final_books }}</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  {% block content %}
+
+  {% endblock content %}
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <!-- Site Information -->
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <div class="footer-logo">
+              <image src="{% static '/images/icons/logo-white.png' %}" alt="">
+            </div>
+
+            <p>
+              Address:
+              <a
+                href="https://www.google.com/maps/place/Cra.+15+%2310-78+a+10-138,+Pereira,+Risaralda/@4.8071754,-75.6899464,17z/data=!3m1!4b1!4m5!3m4!1s0x8e38873ed7f30951:0xc1ff65647c0bade2!8m2!3d4.8071752!4d-75.6877576?hl=es">
+                Cra. 15 #10-78 a 10-138
+              </a><br>
+              Pereira, Risaralda<br>
+              Colombia<br><br>
+              <strong>Phone:</strong> +57 311 245 0123<br>
+              <strong>Email:</strong> prologos.libreria@gmail.com<br>
+            </p>
+
+          </div>
+
+          <!-- ======= Footer Links ======= -->
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Main links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'about' %}">About Us</a></li>
+              {% if user.is_authenticated %}
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'update_profile' %}">My profile</a></li>
+              {% else %}
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'signin' %}">Login</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'signup' %}">Signup</a></li>
+              {% endif %}
+              <li><i class="bx bx-chevron-right"></i> <a href="/root">Admin Login</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Other links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'store' %}">Books</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'news' %}">News</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'cart' %}">My shopping cart</a></li>
+            </ul>
+          </div>
+          <!-- END Footer Links -->
+
+          <!--Register to news module-->
+          <!--<div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Únete a nuestra comunidad</h4>
+            <p>Ingresa tu correo para poder recibir nuestra información.</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Unirse">
+            </form>
+          </div>
+        -->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <!-- Copyright data -->
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Prólogos</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Template made by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+
+      <!-- REDES SOCIALES
+        <div class="social-links text-center text-md-end pt-3 pt-md-0">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    -->
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- ======= Back to top ======= -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <lord-icon src="https://cdn.lordicon.com/xsdtfyne.json" trigger="hover" colors="primary:#ffffff" state="hover-2"
+      style="width:32px;height:32px">
+    </lord-icon>
+  </a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/card.js' %}"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- Animated Icons -->
+  <script src="https://cdn.lordicon.com/pzdvqjsp.js"></script>
+
+</body>
+</html>

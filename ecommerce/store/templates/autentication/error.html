@@ -1,0 +1,37 @@
+{% extends 'autentication/main_user.html' %}
+{% load static %}
+{% block content %}
+
+<title>ERROR 404</title>
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">
+            4
+            <lord-icon src="https://cdn.lordicon.com/jfhbogmw.json" trigger="hover" colors="primary:#666666" scale="60"
+                state="hover-3" style="width:70px;height:70px">
+            </lord-icon>
+            4
+        </h1>
+        <p class="fs-3"> <span class="text-danger">Oops!</span> Page not found.</p>
+        <p class="lead">
+            The page you’re looking for doesn’t exist.
+        </p>
+
+        <!--Login button-->
+        <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <a href="/" class="login100-form-btn">
+                    Go home
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Animated Icons -->
+<script src="https://cdn.lordicon.com/pzdvqjsp.js"></script>
+
+{% endblock content %}

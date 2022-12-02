@@ -1,0 +1,66 @@
+{% extends 'autentication/main_user.html' %}
+{% load static %}
+{% block content %}
+
+<title>Prólogos - Login</title>
+
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+
+			<!--Home logo-->
+			<div class="mb-4">
+				<a href="/">
+					<image src="{% static '/images/icons/logo-red-black.png' %}" class="login-logo">
+				</a>
+			</div>
+
+			{{ error }}
+
+			<form class="login100-form validate-form" action="{% url 'signin' %}" method="POST">
+				{% csrf_token %}
+				<!--user-->
+				<div class="wrap-input100 validate-input" data-validate="Enter data">
+					<input class="input100" type="text" name="username" placeholder="Username">
+					<span class="focus-input100"></span>
+				</div>
+				<!--password-->
+				<div class="wrap-input100 validate-input" data-validate="Enter password" style="margin-bottom: 0%;">
+					<input class="input100" type="password" name="password" placeholder="Password">
+					<span class="focus-input100"></span>
+				</div>
+
+				<!--forgotten password-->
+				<div class="p-t-115">
+					<a class="txt2" href="/password-reset">
+						Forgot it?
+					</a>
+				</div>
+
+				<!--Login button-->
+				<div class="container-login100-form-btn">
+					<div class="wrap-login100-form-btn">
+						<div class="login100-form-bgbtn"></div>
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+				</div>
+
+				<!--Link to signup-->
+				<div class="text-center p-t-115">
+					<span class="txt1">
+						Don’t have an account?
+					</span>
+
+					<a class="txt2" href="/signup">
+						Sign Up
+					</a>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

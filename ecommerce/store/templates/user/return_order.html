@@ -1,0 +1,69 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/result.css' %}" rel="stylesheet">
+<title>Prólogos - Request refund</title>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="grid search">
+                <div class="grid-body">
+
+                    <h2>
+                        <lord-icon src="https://cdn.lordicon.com/kulwmpzs.json" trigger="hover" colors="primary:#666666"
+                            style="width:50px;height:50px">
+                        </lord-icon>
+                        <b>Refund request</b>
+                    </h2>
+                    <hr>
+
+                    <!-- ======= Purchase Info ======= -->
+                    <div class="row">           
+                        <div class="mb-3 d-flex justify-content-evenly">
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Purchase ID:</b></h5>
+                                <label class="form-label">{{ order.order_number }}</label>
+                            </div>
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Amount:</b></h5>
+                                <label class="form-label">${{ order.get_final_price }}</label>
+                            </div>
+
+                            <div class="d-flex">
+                                <h5 class="me-3"><b>Date:</b></h5>
+                                <label class="form-label">{{ order.order_date }}</label>
+                            </div>
+
+                        </div>
+
+                        <form action="{% url 'return_order' order.order_number %}" method="POST">
+                        {% csrf_token %}
+
+                        {{form}}
+
+                        <!-- Upload request button -->
+                        <div class="mb-3">
+                            <button class="continue-btn">
+                                <lord-icon src="https://cdn.lordicon.com/jxwksgwv.json" trigger="hover"
+                                    colors="primary:#ffffff" state="hover-2" 
+                                    style="width:32px;height:32px">
+                                </lord-icon>
+                                Request refund
+                            </button>
+                        </div>
+                        
+                        </form>
+                        
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
